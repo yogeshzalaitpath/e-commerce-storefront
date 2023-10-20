@@ -10,6 +10,7 @@ import clsx from "clsx"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
+import { ShoppingCartSolid } from "@medusajs/icons"
 
 const Nav = () => {
   const pathname = usePathname()
@@ -73,7 +74,8 @@ const Nav = () => {
           </div>
 
           <div className="flex items-center h-full">
-            <Link href="/" className="text-xl-semi uppercase">
+            <Link href="/" className="text-lg font-semibold uppercase flex items-center gap-2">
+              <ShoppingCartSolid/>
               E-Commerce
             </Link>
           </div>

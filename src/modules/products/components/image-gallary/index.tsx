@@ -12,10 +12,11 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
   const handleScrollTo = (id: string) => {
     const element = document.getElementById(id)
     if (element) {
-      element.scrollIntoView({
+      const offsetTop =
+        element.getBoundingClientRect().top + window.scrollY - 80
+      window.scrollTo({
+        top: offsetTop,
         behavior: "smooth",
-        block: "start",
-        inline: "nearest",
       })
     }
   }
@@ -27,7 +28,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
           return (
             <button
               key={image.id}
-              className="h-14 w-12 relative border border-white"
+              className="h-14 w-12 relative border rounded-md overflow-hidden focus:border-black"
               onClick={() => {
                 handleScrollTo(image.id)
               }}
@@ -47,19 +48,19 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
           )
         })}
       </div>
-      <div className="flex flex-col flex-1 small:mx-16 gap-y-4">
+      <div className="flex flex-col flex-1 items-center small:mx-16 gap-y-4">
         {images.map((image, index) => {
           return (
             <div
               ref={(image) => imageRefs.current.push(image)}
               key={image.id}
-              className="relative aspect-[29/34] w-full"
+              className="relative aspect-[29/34] w-full max-w-2xl"
               id={image.id}
             >
               <Image
                 src={image.url}
                 priority={index <= 2 ? true : false}
-                className="absolute inset-0"
+                className="absolute inset-0 rounded-xl"
                 alt={`Product image ${index + 1}`}
                 fill
                 sizes="100vw"
