@@ -13,6 +13,7 @@ type ProductActionsProps = {
 }
 
 const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
+  // console.log("producttag", product)
   const { updateOptions, addToCart, options, inStock, variant } =
     useProductActions()
 
@@ -26,26 +27,35 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   return (
     <div className="flex flex-col gap-y-2">
-      {product.collection && (
-        <Link
-          href={`/collections/${product.collection.handle}`}
-          className="text-small-regular text-gray-700"
-        >
-          {product.collection.title}
-        </Link>
-      )}
-      <h3 className="text-xl-regular">{product.title}</h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-xl-regular">{product?.title}</h3>
+        {product.collection && (
+          <Link
+            href={`/collections/${product?.collection?.handle}`}
+            className="text-small-regular text-gray-700"
+          >
+            <span className="text-lg px-2 ml-1 bg-black text-white rounded-md">
+              Popular
+            </span>
+          </Link>
+        )}
+      </div>
 
       <p className="text-base-regular">{product.description}</p>
 
       {product.variants.length > 1 && (
         <div className="my-8 flex flex-col gap-y-6">
           {(product.options || []).map((option) => {
+            console.log('option', option)
+
+            const defaultSelectedOption = options[option.id] || option.values[0].value;
+             console.log('defaultSelectedOption', defaultSelectedOption)
             return (
               <div key={option.id}>
                 <OptionSelect
                   option={option}
-                  current={options[option.id]}
+                  
+                  current={defaultSelectedOption}
                   updateOption={updateOptions}
                   title={option.title}
                 />
