@@ -1,6 +1,7 @@
 import { useProductActions } from "@lib/context/product-context"
 import useProductPrice from "@lib/hooks/use-product-price"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+import { Badge } from "@medusajs/ui"
 import Button from "@modules/common/components/button"
 import OptionSelect from "@modules/products/components/option-select"
 import clsx from "clsx"
@@ -9,11 +10,13 @@ import React, { useMemo } from "react"
 import { Product } from "types/medusa"
 
 type ProductActionsProps = {
-  product: PricedProduct
+  product: PricedProduct & {
+    is_popular?:boolean
+  }
 }
 
 const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
-  // console.log("producttag", product)
+  console.log("🚀 ~ file: index.tsx:17 ~ product:", product)
   const { updateOptions, addToCart, options, inStock, variant } =
     useProductActions()
 
@@ -28,17 +31,19 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   return (
     <div className="flex flex-col gap-y-2">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl-regular">{product?.title}</h3>
-        {product.collection && (
+        <h3 className="text-xl-regular">{product.title}</h3>
+        {product.is_popular && (
+          <Badge className="bg-black text-white">Popular</Badge>
+        )}
+
+        {/* {product.collection && (
           <Link
             href={`/collections/${product?.collection?.handle}`}
             className="text-small-regular text-gray-700"
           >
-            <span className="text-lg px-2 ml-1 bg-black text-white rounded-md">
-              Popular
-            </span>
+            
           </Link>
-        )}
+        )} */}
       </div>
 
       <p className="text-base-regular">{product.description}</p>
@@ -46,15 +51,12 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       {product.variants.length > 1 && (
         <div className="my-8 flex flex-col gap-y-6">
           {(product.options || []).map((option) => {
-            console.log('option', option)
-
-            const defaultSelectedOption = options[option.id] || option.values[0].value;
-             console.log('defaultSelectedOption', defaultSelectedOption)
+            const defaultSelectedOption =
+              options[option.id] || option.values[0].value
             return (
               <div key={option.id}>
                 <OptionSelect
                   option={option}
-                  
                   current={defaultSelectedOption}
                   updateOption={updateOptions}
                   title={option.title}

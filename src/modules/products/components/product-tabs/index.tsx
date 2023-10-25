@@ -58,7 +58,6 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
 }
 
 const ProductInfoTab = ({ product }: ProductTabsProps) => {
-  console.log("product", product)
   return (
     <Tab.Panel className="text-small-regular py-8">
       <div className="grid grid-cols-2 gap-x-8">
@@ -91,7 +90,7 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
           </div>
         </div>
         {product?.tags?.length ? (
-          <div>
+          <div className="mt-4">
             <span className="font-semibold">Tags</span>
             <ul>
               {product?.tags?.map((tag, index) => (
