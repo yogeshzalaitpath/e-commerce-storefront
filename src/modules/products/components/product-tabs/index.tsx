@@ -1,6 +1,7 @@
 import { Tab } from "@headlessui/react"
 import { Product } from "@medusajs/medusa"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+import { Badge } from "@medusajs/ui"
 import Back from "@modules/common/icons/back"
 import FastDelivery from "@modules/common/icons/fast-delivery"
 import Refresh from "@modules/common/icons/refresh"
@@ -89,13 +90,18 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
             </p>
           </div>
         </div>
+
         {product?.tags?.length ? (
           <div className="mt-4">
             <span className="font-semibold">Tags</span>
-            <ul>
-              {product?.tags?.map((tag, index) => (
-                <li key={tag?.id}>{tag?.value}</li>
-              ))}
+            <ul className="mt-2">
+              {product?.tags?.map((tag, index) => {
+                return (
+                  <Badge key={tag?.id} color="grey" className="mb-2 mr-2">
+                    {tag?.value}
+                  </Badge>
+                )
+              })}
             </ul>
           </div>
         ) : null}

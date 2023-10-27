@@ -14,6 +14,7 @@ import React, {
 import { Variant } from "types/medusa"
 import { useStore } from "./store-context"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+import { Toaster, useToast } from "@medusajs/ui"
 
 interface ProductContext {
   formattedPrice: string
@@ -47,6 +48,7 @@ export const ProductProvider = ({
 
   const { addItem } = useStore()
   const { cart } = useCart()
+  const { toast } = useToast()
   const variants = product.variants as unknown as Variant[]
 
   useEffect(() => {
@@ -59,6 +61,7 @@ export const ProductProvider = ({
   }, [product])
 
   // memoized record of the product's variants
+
   const variantRecord = useMemo(() => {
     const map: Record<string, Record<string, string>> = {}
 
@@ -127,6 +130,13 @@ export const ProductProvider = ({
         variantId: variant.id,
         quantity,
       })
+    } else {
+      toast({
+        title: "Please select a option",
+        description: "You must select a option before adding to the cart.",
+        variant: "error",
+        duration: 5000,
+      })
     }
   }
 
@@ -151,23 +161,26 @@ export const ProductProvider = ({
   }
 
   return (
-    <ProductActionContext.Provider
-      value={{
-        quantity,
-        maxQuantityMet,
-        disabled,
-        inStock,
-        options,
-        variant,
-        addToCart,
-        updateOptions,
-        decreaseQuantity,
-        increaseQuantity,
-        formattedPrice,
-      }}
-    >
-      {children}
-    </ProductActionContext.Provider>
+    <>
+      <Toaster />
+      <ProductActionContext.Provider
+        value={{
+          quantity,
+          maxQuantityMet,
+          disabled,
+          inStock,
+          options,
+          variant,
+          addToCart,
+          updateOptions,
+          decreaseQuantity,
+          increaseQuantity,
+          formattedPrice,
+        }}
+      >
+        {children}
+      </ProductActionContext.Provider>
+    </>
   )
 }
 

@@ -6,17 +6,16 @@ import Button from "@modules/common/components/button"
 import OptionSelect from "@modules/products/components/option-select"
 import clsx from "clsx"
 import Link from "next/link"
-import React, { useMemo } from "react"
+import React, { useMemo, useState } from "react"
 import { Product } from "types/medusa"
 
 type ProductActionsProps = {
   product: PricedProduct & {
-    is_popular?:boolean
+    is_popular?: boolean
   }
 }
 
 const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
-  console.log("🚀 ~ file: index.tsx:17 ~ product:", product)
   const { updateOptions, addToCart, options, inStock, variant } =
     useProductActions()
 
@@ -35,15 +34,6 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         {product.is_popular && (
           <Badge className="bg-black text-white">Popular</Badge>
         )}
-
-        {/* {product.collection && (
-          <Link
-            href={`/collections/${product?.collection?.handle}`}
-            className="text-small-regular text-gray-700"
-          >
-            
-          </Link>
-        )} */}
       </div>
 
       <p className="text-base-regular">{product.description}</p>
@@ -51,13 +41,11 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       {product.variants.length > 1 && (
         <div className="my-8 flex flex-col gap-y-6">
           {(product.options || []).map((option) => {
-            const defaultSelectedOption =
-              options[option.id] || option.values[0].value
             return (
               <div key={option.id}>
                 <OptionSelect
                   option={option}
-                  current={defaultSelectedOption}
+                  current={options[option.id]}
                   updateOption={updateOptions}
                   title={option.title}
                 />

@@ -25,7 +25,9 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
         {filteredOptions.map((v) => {
           return (
             <button
-              onClick={() => updateOption({ [option.id]: v })}
+              onClick={() => {
+                updateOption({ [option.id]: v })
+              }}
               key={v}
               className={clsx(
                 "border-gray-200 border text-xsmall-regular h-[50px] transition-all duration-200 rounded-lg",
