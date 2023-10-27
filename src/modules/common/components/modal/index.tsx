@@ -18,7 +18,11 @@ const Modal: React.FC<ModalProps> & {
 } = ({ isOpen, close, size = "medium", children }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-[75] rounded-xl bg-red-600" onClose={close}>
+      <Dialog
+        as="div"
+        className="relative z-[75] rounded-xl bg-red-600"
+        onClose={close}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -44,7 +48,7 @@ const Modal: React.FC<ModalProps> & {
             >
               <Dialog.Panel
                 className={clsx(
-                  "flex flex-col justify-start w-full h-full transform overflow-auto bg-white p-10 text-left align-middle shadow-xl transition-all max-h-[65vh]",
+                  "flex flex-col justify-start w-full h-full transform overflow-hidden bg-white text-left align-middle shadow-xl transition-all max-h-[65vh] rounded-2xl",
                   {
                     "max-w-md": size === "small",
                     "max-w-xl": size === "medium",
@@ -52,7 +56,9 @@ const Modal: React.FC<ModalProps> & {
                   }
                 )}
               >
-                <ModalProvider close={close}>{children}</ModalProvider>
+                <div className="overflow-auto p-10">
+                  <ModalProvider close={close}>{children}</ModalProvider>
+                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>

@@ -132,10 +132,11 @@ export const ProductProvider = ({
       })
     } else {
       toast({
-        title: "Please select a option",
-        description: "You must select a option before adding to the cart.",
-        variant: "error",
-        duration: 5000,
+        title: "Select options!",
+        description:
+          "Please select the right product options.",
+        variant: "warning",
+        duration: 3000,
       })
     }
   }
