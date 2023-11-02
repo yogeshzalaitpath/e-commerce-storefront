@@ -21,8 +21,8 @@ const Hit = ({ hit }: HitProps) => {
   return (
     <div key={hit.id} className="grid grid-cols-[86px_1fr] gap-4 w-full">
       <Thumbnail thumbnail={hit.thumbnail} size="full" />
-      <div className="flex flex-col justify-between">
-        <div className="flex flex-col">
+      <div className="flex flex-col justify-between w-full overflow-hidden">
+        <div className="flex flex-col w-full">
           {hit.collection_id && (
             <Link
               href={`/collections/${hit.collection_handle}`}
@@ -32,7 +32,7 @@ const Hit = ({ hit }: HitProps) => {
             </Link>
           )}
           <span className="text-base-regular">{hit.title}</span>
-          <span className="text-small-regular text-gray-700">
+          <span className="text-small-regular text-gray-700 w-full line-clamp-3">
             {hit.description}
           </span>
         </div>
