@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.6.1",
+    "@heroicons/react": "^2.0.18",
     "@hookform/error-message": "^2.0.0",
     "@medusajs/icons": "^1.1.0",
     "@medusajs/link-modules": "^0.1.1",

@@ -16,7 +16,8 @@ module.exports = withStoreConfig({
       "medusa-public-images.s3.eu-west-1.amazonaws.com",
       "medusa-server-testing.s3.amazonaws.com",
       "res.cloudinary.com",
-      "localhost"
+      "localhost",
+      'encrypted-tbn0.gstatic.com'
     ],
   },
 })

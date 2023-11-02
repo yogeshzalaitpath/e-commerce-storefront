@@ -10,6 +10,9 @@ import ImageGallery from "@modules/products/components/image-gallary"
 import MobileActions from "@modules/products/components/mobile-actions"
 import ProductOnboardingCta from "@modules/products/components/product-onboarding-cta"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+import ProductReview from "../components/product-review"
+import ProductRating from "../components/product-rating"
+import reviewData from "../../../lib/util/reviewsData"
 
 type ProductTemplateProps = {
   product: PricedProduct
@@ -42,6 +45,16 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
           <ProductTabs product={product} />
         </div>
       </div>
+
+      <div className="content-container flex flex-col small:flex-row small:items-start py-6 gap-10">
+        <div className="w-full small:w-1/2">
+        <ProductRating />
+        </div>
+        <div className="w-full small:w-1/2"> 
+          <ProductReview reviews={reviewData}/>
+        </div>
+      </div>
+
       <div className="content-container my-16 px-6 small:px-8 small:my-32">
         <RelatedProducts product={product} />
       </div>
