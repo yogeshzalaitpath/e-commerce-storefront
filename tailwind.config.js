@@ -39,5 +39,5 @@ module.exports = {
     },
   },
   presets: [require("@medusajs/ui-preset")],
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 }
